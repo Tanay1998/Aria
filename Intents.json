@@ -1,0 +1,228 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "GPIOControlIntent",
+      "samples": [
+        "to turn pin {pin} {status}",
+        "set pin {pin} {status}",
+        "set pin {pin} to {status}",
+        "turn {status} pin {pin}"
+      ],
+      "slots": [
+        {
+          "name": "pin",
+          "type": "AMAZON.NUMBER",
+          "samples": [
+            "{pin}",
+            "pin {pin}"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "GPIO_CONTROL",
+          "samples": [
+            "{status}",
+            "set it to {status}",
+            "set to {status} "
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LightsIntent",
+      "samples": [
+        "turn {status} light",
+        "turn on {color} lights",
+        "make my lights {color} ",
+        "turn {status} lights",
+        "set lights to {lightMode} ",
+        "its {lightMode} time",
+        "turn on {lightMode} lights",
+        "turn lights {status} ",
+        "set lights to {lightMode} mode",
+        "turn {color} lights {status} ",
+        "turn {status} {color} lights",
+        "turn lights to {color} ",
+        "lights {color} "
+      ],
+      "slots": [
+        {
+          "name": "color",
+          "type": "AMAZON.Color",
+          "samples": []
+        },
+        {
+          "name": "lightMode",
+          "type": "LIGHT_MODE",
+          "samples": []
+        },
+        {
+          "name": "status",
+          "type": "GPIO_CONTROL",
+          "samples": []
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "GPIO_CONTROL",
+      "values": [
+        {
+          "name": {
+            "value": "on"
+          }
+        },
+        {
+          "name": {
+            "value": "off"
+          }
+        }
+      ]
+    },
+    {
+      "name": "LIGHT_MODE",
+      "values": [
+        {
+          "name": {
+            "value": "sunset"
+          }
+        },
+        {
+          "name": {
+            "value": "sunrise"
+          }
+        },
+        {
+          "name": {
+            "value": "party"
+          }
+        },
+        {
+          "name": {
+            "value": "disco"
+          }
+        },
+        {
+          "name": {
+            "value": "study"
+          }
+        },
+        {
+          "name": {
+            "value": "relax"
+          }
+        },
+        {
+          "name": {
+            "value": "chill"
+          }
+        },
+        {
+          "name": {
+            "value": "night"
+          }
+        },
+        {
+          "name": {
+            "value": "ambient"
+          }
+        }
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "Elicit.Intent-GPIOControlIntent.IntentSlot-pin",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "what pin do you want to change?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-GPIOControlIntent.IntentSlot-status",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "what should i set this pin to?"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "GPIOControlIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "pin",
+            "type": "AMAZON.NUMBER",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-GPIOControlIntent.IntentSlot-pin"
+            }
+          },
+          {
+            "name": "status",
+            "type": "GPIO_CONTROL",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-GPIOControlIntent.IntentSlot-status"
+            }
+          }
+        ]
+      },
+      {
+        "name": "LightsIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "color",
+            "type": "AMAZON.Color",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          },
+          {
+            "name": "lightMode",
+            "type": "LIGHT_MODE",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          },
+          {
+            "name": "status",
+            "type": "GPIO_CONTROL",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          }
+        ]
+      }
+    ]
+  }
+}
